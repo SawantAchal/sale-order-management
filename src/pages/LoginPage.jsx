@@ -1,6 +1,7 @@
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 const LoginPage = () => {
     const [username , setUsername] = useState('')
@@ -9,6 +10,7 @@ const LoginPage = () => {
     const [usernameError , setUsernameError] = useState('')
     const [passwordError , setPasswordError] = useState('')
     const navigate = useNavigate()
+    const {login} = useAuth();
 
     const hangleLogin = () => {
         if (!username) {
@@ -25,6 +27,7 @@ const LoginPage = () => {
         }
 
         if (username === 'user' && password === 'password') {
+            login();
             navigate('/')
         } else {
             setError('Invalid username and password')
